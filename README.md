@@ -67,3 +67,59 @@ foo.should.be.a('string')
 		 - it 定义的测试用例(test case)
 		 - 测试代码
 		 - 断言部分
+```js {.line-numbers}
+// add.js 
+function add(x, y) {
+  return x + y;
+}
+module.exports = add;
+
+// 测试脚本 add.test.js
+// 测试脚本与所要测试的源码脚本同名，但是后缀名为.test.js（表示测试）或者.spec.js（表示规格）
+const should = require('should');
+describe("加法函数的测试",function(){
+	// 用来定义测试用例 
+	it('测试用例描述：1+1 = 2 ',function(){
+	// 测试代码
+		const n = 1 + 1; 
+		// node 断言
+		(3).should.equal(n,2,"message")
+	})
+}) 
+``` 	 	 
+3、测试运行工具(karma) 
+- 他不是测试框架，也不是一个断言库， 他会开启一个HTTP服务，将测试文件生成一个HTML文件，在浏览器运行，调试。karma不指定测试框架，和 Mocha、jesmine 都可以结合使用
+- 我们测试过程中编写的测试用例，通过它(karma)调用浏览器来运行这些测试用例，然后再汇集测试结果，生成测试报告。
+
+- 使用步骤
+>1. 安装： 
+   npm install karma 
+   karma-chrome-launcher
+   karma-mocha -D
+   npm install karma-cli -g  命令行运行   
+
+>2. 初始化 karma init
+>3. 生产配置文件
+```js {.line-numbers}
+# 选择测试框架，选择mocha
+1. Which testing framework do you want to use ? (mocha)
+# 是否引入Require.js，不需要
+2. Do you want to use Require.js ? (no)
+选择使用的浏览器,选择了Chrome
+3. Do you want to capture any browsers automatically ? (Chrome)
+# 告诉需要执行的测试用例的代码路径，支持正则
+4. What is the location of your source and test files ?("test/**.js")
+# 上面指定的路径中需要排除在外的文件
+5. Should any of the files included by the previous patterns be excluded ? ()
+# 是否观察文件的变化 
+6. Do you want Karma to watch all the files and run the tests on change ? (yes)
+```
+>4. 运行karma karma start
+ 会运行测试用例，并打开chrome浏览器查看运行结果
+ 
+4、Travis CI(Continuous Integration) 
+-  持续集成 ，简称CI ：意思是，在一个项目中，任何人对代码库的任何改动，都会触发CI服务器自动对项目进行构建，自动运行测试，甚至自动部署到测试环境。这样做的好处就是，随时发现问题，随时修复。因为修复问题的成本随着时间的推移而增长，越早发现，修复成本越低
+-  Travis CI 是在线托管的CI服务，用 Travis 来进行持续集成，不需要自己搭建服务器。对开源项目是免费的。
+- 准备: 有 github ，也有开源项目，就可以开始 CI了 
+>1. 用github账号登录travis官网，同步并激活监听github上的可测试的项目
+2. 
