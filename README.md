@@ -39,6 +39,22 @@
 
 - 断言库
 >市面上有很多断言库都是基于assert模块进行封装和扩展,比较出名的有
->1. should.js 
->2. expect.js
->3. chai.js
+>1. should.js  BDD风格断言库，should.js 相对assert模块有比较丰富的API，并且其语法非常语义化
+```js {.line-numbers}
+var should = require('should');
+(0).should.be.Number();
+```
+>2. expect.js BDD风格断言库，语法和should相似
+```js {.line-numbers}
+var expect = require('expect');
+expect(true).to.be.ok();
+```
+>3. chai.js  支持BDD/TDD双模式，同时支持should/expect/assert三种风格的断言库，还有强大的插件机制
+```js {.line-numbers}
+var assert = requier('chai').assert
+assert.notEqual(3, 4, 'these numbers are not equal')
+
+var should = require('chai').should()
+var foo = 'bar'
+foo.should.be.a('string')
+```
